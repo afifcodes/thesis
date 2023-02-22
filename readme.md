@@ -35,7 +35,9 @@ Mask R-CNN is coceptually simple: Faster R-CNN has two outputs for each candidat
 > >
 > > The $cls$ layer has $2k$ outputs that estimates probability of object or not object for each proposal.
 ## RPN Loss Function
-$$L(\{p_{i}\},\{t_{i}\})=\dfrac{1}{N_{cls}}\sum_{i}L_{cls}(p_{i},p_{i}^{*})+\lambda\dfrac{1}{N_{reg}}\sum_{i}p_{i}^{i}L_{reg}(t_{i},t_{i}^{*})$$
+$$
+L(\{p_{i}\},\{t_{i}\})=\dfrac{1}{N_{cls}}\sum_{i}L_{cls}(p_{i},p_{i}^{*})+\lambda\dfrac{1}{N_{reg}}\sum_{i}p_{i}^{i}L_{reg}(t_{i},t_{i}^{*})
+$$
 where:
 - $i$ = index of anchor in mini batch
 - $p_{i}$ = predicted probability of anchor $i$ being an object
@@ -44,11 +46,15 @@ where:
 - $t_{i}^{*}$ = ground truth box associated with positive anchor
  
 ### Classification Loss
-$$L_{cls}$$
+$$
+L_{cls}
+$$
 is log loss over two classes (object vs not object)
 
 ### Regression Loss
-$$L_{reg}(t_{i},t_{i}^*)=R(t_{i}-t{i}^*)$$
+$$
+L_{reg}(t_{i},t_{i}^*)=R(t_{i}-t{i}^*)
+$$
 where:
 - $R$ = robust loss function (smooth $L_{1}$)
 - $p_{i}^*L_{reg}$ is activated only for positive anchors ($p_{i}^*$=1) and disabled otherwise ($p_{i}^*$=0)
@@ -62,15 +68,9 @@ where:
 ## Bounding Box Regression
 for bounding box regression, we adopt parameterizations of the 4 coordinates following:
 $$
-t_{x}=\dfrac{x-x_{a}}{w_{a}}, t_{y}=\dfrac{y-y_{a}}{h_{a}},
-$$
-$$
-t_{w}=log(\dfrac{w}{w_{a}}), t_{h}=log(\dfrac{h}{h_{a}}),
-$$
-$$
-t_{x}^{*}=\dfrac{x^{*}-x_{a}}{w_{a}}, t_{y}^{*}=\dfrac{y^{*}-y_{a}}{h_{a}},
-$$
-$$
+t_{x}=\dfrac{x-x_{a}}{w_{a}}, t_{y}=\dfrac{y-y_{a}}{h_{a}}, \\
+t_{w}=log(\dfrac{w}{w_{a}}), t_{h}=log(\dfrac{h}{h_{a}}), \\
+t_{x}^{*}=\dfrac{x^{*}-x_{a}}{w_{a}}, t_{y}^{*}=\dfrac{y^{*}-y_{a}}{h_{a}}, \\
 t_{w}^{*}=log(\dfrac{w^{*}}{w_{a}}), t_{h}^{*}=log(\dfrac{h^{*}}{h_{a}})
 $$
 where:
